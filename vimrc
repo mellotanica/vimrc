@@ -5,6 +5,8 @@
 " C-t		I/N	toggle tagbar
 " `		All	toggle NERDTree
 " F2		All	follow symbol under cursor
+" F4		All	follow symbol under cursor in new split
+" F3		All	go back
 " C-b		All	go back
 " A-PgDown	All	split vertically
 " A-PgUp	All	split horizontally
@@ -39,6 +41,8 @@ Plugin 'majutsushi/tagbar' " current file's tags sorted by scope
 Plugin 'ctrlpvim/ctrlp.vim' " fuzzy finder
 Plugin 'mileszs/ack.vim' " ack interface
 Plugin 'Shougo/neocomplete' " autocomplete
+Plugin 'miconda/tagspot.vim' " prioritize nearby tags
+"Plugin 'mmhere/tagselect' " display multiple matching tags in a dedicated window
 
 " optional plugins
 Plugin 'vim-airline/vim-airline' " status bar
@@ -178,8 +182,6 @@ endfunction
 
 let g:gutentags_init_user_func = "Setup_gutentags"
 
-
-
 """ NON VUNDLE STUFF
 
 " color scheme
@@ -266,11 +268,6 @@ endfunction
 
 autocmd BufEnter * call s:setcwd()
 
-
-function CloseTabAndVim()
-	
-endfunction
-
 """ key mappings
 
 
@@ -289,7 +286,12 @@ inoremap <C-U> <C-G>u<C-U>
 map ` :call ToggleNERDTree()<CR>
 
 " F2 and CTRL-b act as 'follow symbol' and 'go back' (CTRL-], CTRL-o)
-noremap <F2>	<C-]>
+nnoremap <F2>	:tj<CR>
+inoremap <F2>	<Esc>:tj<CR>
+nnoremap <F4>	:stj<CR>
+inoremap <F4>	<Esc>:stj<CR>
+
+noremap <F3>	<C-o>
 noremap <C-b>	<C-o>
 
 noremap <A-PageDown>	:vs<CR>
