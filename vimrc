@@ -2,18 +2,38 @@
 "
 " key 		mode 	function
 "
-" C-t		I/N	toggle tagbar
+" C-t		N/I	toggle tagbar
 " `		All	toggle NERDTree
-" F2		All	follow symbol under cursor
-" F4		All	follow symbol under cursor in new split
+" C-u		N	toggle undotree
+"
+" F2		N/I	follow symbol under cursor (list matching symbols)
+" F4		All	follow symbol under cursor (first matching symbol)
 " F3		All	go back
 " C-b		All	go back
+" F7		N/I	go to previous matching symbol
+" F8		N/I	go to next matching symbol
+"
+" [1		N/V	highlight w/ marker 1
+" [2		N/V	highlight w/ marker 2
+" [3		N/V	highlight w/ marker 3
+" [4		N/V	highlight w/ marker 4
+" \1		N	cancel highlight 1
+" \2		N	cancel highlight 2
+" \3		N	cancel highlight 3
+" \4		N	cancel highlight 4
+" \0		N	cancel all highlights
+" [s		N/V	replace marker 1 with marker 2
+"
+" F9		All	open C reference documentation fo symbol under cursor
+"
 " A-PgDown	All	split vertically
 " A-PgUp	All	split horizontally
 " A-Direction	All	go to split in Direction
+"
+" \Tab		N/I	go to next tab
+" \S-Tab	N/I	go to previous tab
+"
 " C-q		All	close current window
-
-
 
 """ VUNDLE STUFF
 " should stay on top
@@ -36,19 +56,25 @@ Plugin 'tpope/vim-sensible' " basic common vim settings
 Plugin 'scrooloose/nerdcommenter' " fast comments
 Plugin 'Raimondi/delimitMate' " delimiters pairing
 Plugin 'a.vim' " alternate quickly between .h and .c
-Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree' " file browser
 Plugin 'majutsushi/tagbar' " current file's tags sorted by scope
 Plugin 'ctrlpvim/ctrlp.vim' " fuzzy finder
 Plugin 'mileszs/ack.vim' " ack interface
 Plugin 'Shougo/neocomplete' " autocomplete
 Plugin 'miconda/tagspot.vim' " prioritize nearby tags
-"Plugin 'mmhere/tagselect' " display multiple matching tags in a dedicated window
+Plugin 'exvim/ex-utility' " exvim base library
+Plugin 'exvim/ex-tags' " enhanced tag listing
+Plugin 'exvim/ex-searchcompl' " tab suggestions in search bar
+Plugin 'exvim/ex-minibufexpl' " open buffers bar
+Plugin 'exvim/ex-easyhl' " fast highlighting and replacement
 
 " optional plugins
+Plugin 'mbbill/undotree' " history tree viewer
 Plugin 'vim-airline/vim-airline' " status bar
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive' " git wrapper
-Plugin 'fatih/vim-go'
+Plugin 'fatih/vim-go' " go support
+Plugin 'exvim/ex-cref' " C reference manual quick access
 
 " heavy wight plugins VVV
 Plugin 'airblade/vim-gitgutter' " git diff in gutter (line no) bar
@@ -182,6 +208,16 @@ endfunction
 
 let g:gutentags_init_user_func = "Setup_gutentags"
 
+"" undotree
+
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_WindowLayout = 4
+let g:undotree_TreeNodeShape = "o"
+
+"" extags
+
+let g:ex_tags_ignore_case = 0
+
 """ NON VUNDLE STUFF
 
 " color scheme
@@ -286,13 +322,31 @@ inoremap <C-U> <C-G>u<C-U>
 map ` :call ToggleNERDTree()<CR>
 
 " F2 and CTRL-b act as 'follow symbol' and 'go back' (CTRL-], CTRL-o)
-nnoremap <F2>	:tj<CR>
-inoremap <F2>	<Esc>:tj<CR>
-nnoremap <F4>	:stj<CR>
-inoremap <F4>	<Esc>:stj<CR>
+nnoremap <F2>	:EXTagsCWord<CR>
+inoremap <F2>	<Esc>:EXTagsCWord<CR>
+noremap <F4>	<C-]>
+
+nnoremap <F7>	:tp<CR>
+inoremap <F7>	<Esc>:tp<CR>i
+nnoremap <F8>	:tn<CR>
+inoremap <F8>	<Esc>:tn<CR>i
 
 noremap <F3>	<C-o>
 noremap <C-b>	<C-o>
+
+nnoremap <Leader><Tab>		:MBEbn<CR>
+inoremap <Leader><Tab>		<Esc>:MBEbn<CR>i
+nnoremap <Leader><S-Tab>	:MBEbp<CR>
+inoremap <Leader><S-Tab>	<Esc>:MBEbp<CR>i
+
+noremap [1	:EasyhlWord 1<CR>
+noremap [2	:EasyhlWord 2<CR>
+noremap [3	:EasyhlWord 3<CR>
+noremap [4	:EasyhlWord 4<CR>
+
+map [s		<Leader>sub
+
+map <F9>	<Leader>cr
 
 noremap <A-PageDown>	:vs<CR>
 noremap <A-PageUp>	:sp<CR>
@@ -302,3 +356,5 @@ noremap <A-Down>	<C-w><Down>
 noremap <A-Up>		<C-w><Up>
 
 noremap <C-q>		:q<CR>
+
+nnoremap <C-u>		:UndotreeToggle<CR>
