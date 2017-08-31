@@ -203,7 +203,7 @@ function Setup_gutentags(bn)
 	endif
 
 	let g:gutentags_ctags_tagfile = "tags_".ext
-	let g:gutentags_file_list_command = "git ls-files | egrep '".g:gutentags_ctags_filter."'"
+	let g:gutentags_file_list_command = "git ls-files | egrep '".g:gutentags_ctags_filter."' | grep -v 'match-overrun.c'"
 
 	return 1
 endfunction
@@ -314,13 +314,27 @@ endfunction
 autocmd BufEnter * call s:setcwd()
 
 
-function CloseBuffer()
-	if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1
+function SmartClose()
+
+	let wcount = winnr('$')
+
+	for i in range(1, wcount)
+		if getwinvar(i, '&buftype') == 'nofile' && getwinvar(i, '&filetype') == 'minibufexpl'
+			let wcount = wcount-1
+		endif
+	endfor
+	
+	if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1  || &buftype != ''
 		quit
 	else
 		MBEbd
+		if wcount > 1
+			quit
+		endif
 	endif
+
 endfunction
+
 
 """ key mappings
 
@@ -375,6 +389,6 @@ noremap <A-Left>	<C-w><Left>
 noremap <A-Down>	<C-w><Down>
 noremap <A-Up>		<C-w><Up>
 
-noremap <C-q>		:call CloseBuffer()<CR>
+noremap <C-q>		:call SmartClose()<CR>
 
 nnoremap <C-u>		:UndotreeToggle<CR>

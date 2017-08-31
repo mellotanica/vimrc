@@ -1,2 +1,2 @@
 --fields=+iS
---exclude="*/valgrind/**/tests/*"
+--exclude="*/valgrind/*/tests/*"
