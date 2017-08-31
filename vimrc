@@ -7,7 +7,7 @@
 " C-u		N	toggle undotree
 "
 " F2		N/I	follow symbol under cursor (list matching symbols)
-" F4		All	follow symbol under cursor (first matching symbol)
+" C-]		All	follow symbol under cursor (first matching symbol)
 " F3		All	go back
 " C-b		All	go back
 " F7		N/I	go to previous matching symbol
@@ -26,14 +26,16 @@
 "
 " F9		All	open C reference documentation fo symbol under cursor
 "
+" F4		N	swirch to header/source
+" \o		N	open file under cursor
+"
 " A-PgDown	All	split vertically
 " A-PgUp	All	split horizontally
 " A-Direction	All	go to split in Direction
 "
 " \Tab		N/I	go to next tab
 " \S-Tab	N/I	go to previous tab
-"
-" C-q		All	close current window
+" C-q		All	close current tab (quit when there is only one tab)
 
 """ VUNDLE STUFF
 " should stay on top
@@ -124,7 +126,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " let g:syntastic_c_remove_include_errors = 1
 
 "" alternate
-let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:../libs,sfr:libs,sfr:include'
+let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:../libs,sfr:libs,sfr:include,wdr:include,wdr:source'
 
 "" neocomplete
 " Disable AutoComplPop.
@@ -218,6 +220,13 @@ let g:undotree_TreeNodeShape = "o"
 
 let g:ex_tags_ignore_case = 0
 
+"" mbe
+
+let g:miniBufExplCycleArround = 1
+let g:miniBufExplUseSingleClick = 1
+let g:miniBufExplShowBufNumbers = 0
+let g:miniBufExplBuffersNeeded = 0
+
 """ NON VUNDLE STUFF
 
 " color scheme
@@ -304,6 +313,15 @@ endfunction
 
 autocmd BufEnter * call s:setcwd()
 
+
+function CloseBuffer()
+	if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1
+		quit
+	else
+		MBEbd
+	endif
+endfunction
+
 """ key mappings
 
 
@@ -324,7 +342,9 @@ map ` :call ToggleNERDTree()<CR>
 " F2 and CTRL-b act as 'follow symbol' and 'go back' (CTRL-], CTRL-o)
 nnoremap <F2>	:EXTagsCWord<CR>
 inoremap <F2>	<Esc>:EXTagsCWord<CR>
-noremap <F4>	<C-]>
+
+nnoremap <F4>	:A<CR>
+nnoremap <Leader>o	:IH<CR>
 
 nnoremap <F7>	:tp<CR>
 inoremap <F7>	<Esc>:tp<CR>i
@@ -355,6 +375,6 @@ noremap <A-Left>	<C-w><Left>
 noremap <A-Down>	<C-w><Down>
 noremap <A-Up>		<C-w><Up>
 
-noremap <C-q>		:q<CR>
+noremap <C-q>		:call CloseBuffer()<CR>
 
 nnoremap <C-u>		:UndotreeToggle<CR>
