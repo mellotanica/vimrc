@@ -1,0 +1,2 @@
+--fields=+iS
+--exclude="*/valgrind/**/tests/*"
