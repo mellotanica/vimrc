@@ -23,3 +23,4 @@ ls "$MYDIR/colors" | while read file; do
 	backupAndLink "$HOME/.vim/colors/$(basename "$file")" "$MYDIR/colors/$(basename "$file")"
 done
 
+vim +PluginInstall +qall

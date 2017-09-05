@@ -8,10 +8,13 @@
 "
 " F2		N/I	follow symbol under cursor (list matching symbols)
 " C-]		All	follow symbol under cursor (first matching symbol)
-" F3		All	go back
-" C-b		All	go back
-" F7		N/I	go to previous matching symbol
-" F8		N/I	go to next matching symbol
+" F3		All	jump back
+" C-b		All	jump back
+" F7		N/I	jump to previous matching symbol
+" F8		N/I	jump to next matching symbol
+"
+" Mouse X1	All	jump back
+" Mouse X2	All	jump forward
 "
 " [1		N/V	highlight w/ marker 1
 " [2		N/V	highlight w/ marker 2
@@ -367,6 +370,9 @@ inoremap <F8>	<Esc>:tn<CR>i
 
 noremap <F3>	<C-o>
 noremap <C-b>	<C-o>
+
+noremap <X1Mouse> <C-o>
+noremap <X2Mouse> <C-i>
 
 nnoremap <Leader><Tab>		:MBEbn<CR>
 inoremap <Leader><Tab>		<Esc>:MBEbn<CR>i
