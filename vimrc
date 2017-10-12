@@ -82,6 +82,8 @@ Plugin 'fatih/vim-go' " go support
 Plugin 'exvim/ex-cref' " C reference manual quick access
 
 " heavy wight plugins VVV
+Plugin 'Shougo/vimproc.vim'
+Plugin 'highwaynoise/chuck.vim'
 Plugin 'airblade/vim-gitgutter' " git diff in gutter (line no) bar
 Plugin 'Shougo/neoinclude.vim' " autocomplete from include files
 Plugin 'Shougo/neco-syntax' " autocomplete syntax aware
@@ -196,7 +198,11 @@ function Setup_gutentags(bn)
 		
 		let c = 0
 		while c < strchars(ext)
-			let filter .= "[".strcharpart(ext, c, 1)."]"
+			if exists('strcharpart')
+				let filter .= "[".strcharpart(ext, c, 1)."]"
+			else
+				let filter .= "[".strpart(ext, c, 1)."]"
+			endif
 			let c += 1
 		endwhile
 
