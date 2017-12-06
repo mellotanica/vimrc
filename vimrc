@@ -35,7 +35,10 @@
 " A-PgDown	All	split vertically
 " A-PgUp	All	split horizontally
 " A-Direction	All	go to split in Direction
-"
+" C-n		All	split vertically
+" C-m		All	split horizontally
+" C-[hjkl]	All	go to split in Direction
+""
 " \Tab		N/I	go to next tab
 " \S-Tab	N/I	go to previous tab
 " C-q		All	close current tab (quit when there is only one tab)
@@ -400,6 +403,12 @@ noremap <A-Right>	<C-w><Right>
 noremap <A-Left>	<C-w><Left>
 noremap <A-Down>	<C-w><Down>
 noremap <A-Up>		<C-w><Up>
+noremap <C-n>		:vs<CR>
+noremap <C-m>		:sp<CR>
+noremap <C-l>		<C-w><Right>
+noremap <C-h>		<C-w><Left>
+noremap <C-j>		<C-w><Down>
+noremap <C-k>		<C-w><Up>
 
 noremap <C-q>		:call SmartClose()<CR>
 
