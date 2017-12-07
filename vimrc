@@ -270,6 +270,7 @@ autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
 """ misc stuff
 
+set colorcolumn=80
 set ruler
 set number
 set scrolloff=3
