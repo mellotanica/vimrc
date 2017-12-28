@@ -36,7 +36,7 @@
 " A-PgUp	All	split horizontally
 " A-Direction	All	go to split in Direction
 " C-n		All	split vertically
-" C-m		All	split horizontally
+" C-i		All	split horizontally
 " C-[hjkl]	All	go to split in Direction
 ""
 " \Tab		N/I	go to next tab
@@ -405,7 +405,7 @@ noremap <A-Left>	<C-w><Left>
 noremap <A-Down>	<C-w><Down>
 noremap <A-Up>		<C-w><Up>
 noremap <C-n>		:vs<CR>
-noremap <C-m>		:sp<CR>
+noremap <C-i>		:sp<CR>
 noremap <C-l>		<C-w><Right>
 noremap <C-h>		<C-w><Left>
 noremap <C-j>		<C-w><Down>
