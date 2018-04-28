@@ -42,9 +42,6 @@ export const deactivate = (oni: Oni.Plugin.Api) => {
 export const configuration = {
 	//add custom config here, such as
 
-	"oni.useDefaultConfig": false,
-	"oni.loadInitVim": "~/.vimrc",
-
 	"ui.colorscheme": "summerfruit256",
 
 	//"oni.bookmarks": ["~/Documents"],
@@ -56,4 +53,7 @@ export const configuration = {
 	// UI customizations
 	"ui.animations.enabled": true,
 	"ui.fontSmoothing": "auto",
+
+	"oni.useDefaultConfig": false,
+	"oni.loadInitVim": "~/.vimrc",
 }

@@ -30,6 +30,7 @@ fi
 
 mkdir -p "$HOME/.config/oni"
 
+backupAndLink "$HOME/.config/nvim" "$HOME/.vim"
 backupAndLink "$HOME/.config/oni/config.tsx" "$MYDIR/config.tsx"
 
 vim +PluginInstall +qall
