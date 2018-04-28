@@ -19,6 +19,7 @@ backupAndLink "$HOME/.ctags" "$MYDIR/ctags"
 
 mkdir -p "$HOME/.vim/colors"
 
+
 ls "$MYDIR/colors" | while read file; do
 	backupAndLink "$HOME/.vim/colors/$(basename "$file")" "$MYDIR/colors/$(basename "$file")"
 done
@@ -26,5 +27,9 @@ done
 if test ! -d "~/.vim/bundle/Vundle.vim/.git"; then
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
+
+mkdir -p "$HOME/.config/oni"
+
+backupAndLink "$HOME"/.config/oni/config.tsx" "$MYDIR/config.tsx"
 
 vim +PluginInstall +qall
