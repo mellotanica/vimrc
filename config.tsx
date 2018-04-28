@@ -5,8 +5,15 @@ import * as Oni from "/opt/oni/resources/app/node_modules/oni-api"
 export const activate = (oni: Oni.Plugin.Api) => {
 	// console.log("config activated")
 
-	// Input
+	const isNormalMode = () => oni.editors.activeEditor.mode === "normal"
+	const isVisualMode = () => oni.editors.activeEditor.mode === "visual"
+	const isInsertOrCommandMode = () =>
+	        oni.editors.activeEditor.mode === "insert" || 
+			oni.editors.activeEditor.mode === "cmdline_normal"
 
+
+	// Input
+	
 	// Move about splits easier.
 	oni.input.bind("<c-h>", () =>
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('h')<CR>`)
@@ -33,6 +40,12 @@ export const activate = (oni: Oni.Plugin.Api) => {
 	oni.input.bind("<a-Up>", () =>
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('l')<CR>`)
 	)
+
+	// Toggle sidebar
+	oni.input.bind("`", "sidebar.toggle", isNormalMode)
+
+	// TAB behaves like enter in autocomplete menu
+	oni.input.bind(["<TAB>", "<enter>"], "contextMenu.select")
 }
 
 export const deactivate = (oni: Oni.Plugin.Api) => {
