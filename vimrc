@@ -72,11 +72,11 @@ Plugin 'exvim/ex-utility' " exvim base library
 Plugin 'exvim/ex-tags' " enhanced tag listing
 Plugin 'exvim/ex-searchcompl' " tab suggestions in search bar
 Plugin 'exvim/ex-easyhl' " fast highlighting and replacement
+Plugin 'exvim/ex-minibufexpl' " open buffers bar
 
 if ! exists("g:gui_oni")
 	Plugin 'scrooloose/nerdtree' " file browser
 	Plugin 'Shougo/neocomplete' " autocomplete
-	Plugin 'exvim/ex-minibufexpl' " open buffers bar
 	Plugin 'majutsushi/tagbar' " current file's tags sorted by scope
 endif
 
@@ -245,14 +245,12 @@ let g:undotree_TreeNodeShape = "o"
 let g:ex_tags_ignore_case = 0
 
 
-if ! exists("g:gui_oni")
-	"" mbe
+"" mbe
 
-	let g:miniBufExplCycleArround = 1
-	let g:miniBufExplUseSingleClick = 1
-	let g:miniBufExplShowBufNumbers = 0
-	let g:miniBufExplBuffersNeeded = 0
-endif
+let g:miniBufExplCycleArround = 1
+let g:miniBufExplUseSingleClick = 1
+let g:miniBufExplShowBufNumbers = 0
+let g:miniBufExplBuffersNeeded = 0
 
 """ NON VUNDLE STUFF
 
@@ -319,32 +317,28 @@ if ! exists("g:gui_oni")
 	endfunction
 
 	autocmd BufEnter * call s:setcwd()
-
-	function SmartClose()
-
-		let wcount = winnr('$')
-
-		for i in range(1, wcount)
-			if getwinvar(i, '&buftype') == 'nofile' && getwinvar(i, '&filetype') == 'minibufexpl'
-				let wcount = wcount-1
-			endif
-		endfor
-
-		if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1  || &buftype != ''
-			quit
-		else
-			if exists("g:gui_oni")
-				quit
-			else
-				MBEbd
-				if wcount > 1
-					quit
-				endif
-			endif
-		endif
-
-	endfunction
 endif
+
+function SmartClose()
+
+	let wcount = winnr('$')
+
+	for i in range(1, wcount)
+		if getwinvar(i, '&buftype') == 'nofile' && getwinvar(i, '&filetype') == 'minibufexpl'
+			let wcount = wcount-1
+		endif
+	endfor
+
+	if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1  || &buftype != ''
+		quit
+	else
+		MBEbd
+		if wcount > 1
+			quit
+		endif
+	endif
+
+endfunction
 
 """ misc stuff
 
@@ -397,9 +391,6 @@ if ! exists("g:gui_oni")
 	noremap <C-j>		<C-w><Down>
 	noremap <C-k>		<C-w><Up>
 
-	noremap <C-q>		:call SmartClose()<CR>
-else
-	noremap <C-q>		<C-w><C-q>
 endif
 
 " F2 and CTRL-b act as 'follow symbol' and 'go back' (CTRL-], CTRL-o)
@@ -441,3 +432,5 @@ noremap <A-PageUp>	:sp<CR>
 
 noremap <C-n>		:vs<CR>
 noremap <C-i>		:sp<CR>
+
+noremap <C-q>		:call SmartClose()<CR>

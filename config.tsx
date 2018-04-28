@@ -11,7 +11,6 @@ export const activate = (oni: Oni.Plugin.Api) => {
 	        oni.editors.activeEditor.mode === "insert" || 
 			oni.editors.activeEditor.mode === "cmdline_normal"
 
-
 	// Input
 	
 	// Move about splits easier.
@@ -46,6 +45,14 @@ export const activate = (oni: Oni.Plugin.Api) => {
 
 	// TAB behaves like enter in autocomplete menu
 	oni.input.bind(["<TAB>", "<enter>"], "contextMenu.select")
+
+	oni.input.unbind("<c-tab>")
+	oni.input.bind("<c-tab>", () => oni.editors.activeEditor.neovim.input("gT"), isNormalMode)
+
+	oni.input.unbind("<s-tab>")
+	oni.input.bind("<s-tab>", () => oni.editors.activeEditor.neovim.input("gt"), isNormalMode)
+	
+	oni.input.bind("<s-t>", "buffer.tabedit", isNormalMode)
 }
 
 export const deactivate = (oni: Oni.Plugin.Api) => {
@@ -62,6 +69,8 @@ export const configuration = {
 	"editor.fontFamily": "Hack",
 
 	"editor.split.mode": "oni",
+
+	"tabs.mode": "tabs",
 
 	// UI customizations
 	"ui.animations.enabled": true,
