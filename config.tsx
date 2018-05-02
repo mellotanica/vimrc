@@ -53,6 +53,9 @@ export const activate = (oni: Oni.Plugin.Api) => {
 	oni.input.bind("<s-tab>", () => oni.editors.activeEditor.neovim.input("gt"), isNormalMode)
 	
 	oni.input.bind("<s-t>", "buffer.tabedit", isNormalMode)
+
+	// start with sidebar collapsed
+	oni.editors.anyEditor.neovim.command(`call OniCommand('sidebar.toggle')`)
 }
 
 export const deactivate = (oni: Oni.Plugin.Api) => {
