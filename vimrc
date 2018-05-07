@@ -352,7 +352,9 @@ if has('mouse')
 	set mouse=a
 endif
 
-set colorcolumn=80
+if(! &diff)
+	set colorcolumn=80
+endif
 set ruler
 set number
 set scrolloff=3
