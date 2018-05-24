@@ -433,6 +433,6 @@ noremap <A-PageDown>	:vs<CR>
 noremap <A-PageUp>	:sp<CR>
 
 noremap <C-n>		:vs<CR>
-noremap <C-i>		:sp<CR>
+noremap <C-b>		:sp<CR>
 
 noremap <C-q>		:call SmartClose()<CR>
