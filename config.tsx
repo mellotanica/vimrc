@@ -27,16 +27,16 @@ export const activate = (oni: Oni.Plugin.Api) => {
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('l')<CR>`)
 	)
 
-	oni.input.bind("<a-Right>", () =>
+	oni.input.bind("<a-Left>", () =>
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('h')<CR>`)
 	)
-	oni.input.bind("<a-Left>", () =>
+	oni.input.bind("<a-Down>", () =>
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('j')<CR>`)
 	)
-	oni.input.bind("<a-Down>", () =>
+	oni.input.bind("<a-Up>", () =>
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('k')<CR>`)
 	)
-	oni.input.bind("<a-Up>", () =>
+	oni.input.bind("<a-Right>", () =>
 		oni.editors.activeEditor.neovim.command(`call OniNextWindow('l')<CR>`)
 	)
 
@@ -46,13 +46,13 @@ export const activate = (oni: Oni.Plugin.Api) => {
 	// TAB behaves like enter in autocomplete menu
 	oni.input.bind(["<TAB>", "<enter>"], "contextMenu.select")
 
+	// Ctrl/Shift + TAB toggles active tabs
 	oni.input.unbind("<c-tab>")
 	oni.input.bind("<c-tab>", () => oni.editors.activeEditor.neovim.input("gT"), isNormalMode)
-
 	oni.input.unbind("<s-tab>")
 	oni.input.bind("<s-tab>", () => oni.editors.activeEditor.neovim.input("gt"), isNormalMode)
 	
-	oni.input.bind("<s-t>", "buffer.tabedit", isNormalMode)
+	// oni.input.bind("<s-t>", "buffer.tabedit", isNormalMode)
 
 	// start with sidebar collapsed
 	oni.editors.anyEditor.neovim.command(`call OniCommand('sidebar.toggle')`)
@@ -69,6 +69,7 @@ export const configuration = {
 
 	//"oni.bookmarks": ["~/Documents"],
 	//"editor.fontSize": "12px",
+	// "editor.fullScreenOnStart" : true,
 	"editor.fontFamily": "Hack",
 
 	"editor.split.mode": "oni",
