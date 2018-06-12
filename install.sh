@@ -15,13 +15,15 @@ backupAndLink(){
 }
 
 backupAndLink "$HOME/.vimrc" "$MYDIR/vimrc"
+backupAndLink "$HOME/.config/nvim/init.vim" "$MYDIR/vimrc"
 backupAndLink "$HOME/.ctags" "$MYDIR/ctags"
 
 mkdir -p "$HOME/.vim/colors"
-
+mkdir -p "$HOME/.config/nvim/colors"
 
 ls "$MYDIR/colors" | while read file; do
 	backupAndLink "$HOME/.vim/colors/$(basename "$file")" "$MYDIR/colors/$(basename "$file")"
+	backupAndLink "$HOME/.config/nvim/colors/$(basename "$file")" "$MYDIR/colors/$(basename "$file")"
 done
 
 if test ! -d "~/.vim/bundle/Vundle.vim/.git"; then
