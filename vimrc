@@ -350,6 +350,12 @@ if exists("realvim")
     "set t_Co=256
     colorscheme summerfruit256
 
+    if &term =~ '256color'
+        " Disable Background Color Erase (BCE) so that color schemes
+        " work properly when Vim is used inside tmux and GNU screen.
+        set t_ut=
+    endif
+
     " mouse support
     if has('mouse')
         set mouse=a
