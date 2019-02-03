@@ -87,6 +87,7 @@ if exists("realvim")
     Plugin 'mbbill/undotree' " history tree viewer
     Plugin 'tpope/vim-fugitive' " git wrapper
     Plugin 'fatih/vim-go' " go support
+    Plugin 'dbeniamine/cheat.sh-vim' " stackoverflow support
     Plugin 'exvim/ex-cref' " C reference manual quick access
     if ! exists("g:gui_oni")
         Plugin 'vim-airline/vim-airline' " status bar

@@ -69,7 +69,7 @@ export const configuration = {
 
 	//"oni.bookmarks": ["~/Documents"],
 	//"editor.fontSize": "12px",
-	// "editor.fullScreenOnStart" : true,
+	"editor.fullScreenOnStart" : true,
 	"editor.fontFamily": "Hack",
 
 	"editor.split.mode": "oni",
