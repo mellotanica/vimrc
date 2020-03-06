@@ -76,6 +76,9 @@ if exists("realvim")
     Plugin 'exvim/ex-searchcompl' " tab suggestions in search bar
     Plugin 'exvim/ex-easyhl' " fast highlighting and replacement
     Plugin 'exvim/ex-minibufexpl' " open buffers bar
+    Plugin 'mfukar/robotframework-vim' " robot framework support
+    Plugin 'martinda/Jenkinsfile-vim-syntax' " Jenkinsfile synthax
+    Plugin 'peterhoeg/vim-qml' " qlm synthax
 
     if ! exists("g:gui_oni")
         Plugin 'scrooloose/nerdtree' " file browser
@@ -115,7 +118,7 @@ if exists("realvim")
 
     if ! exists("g:gui_oni")
         "" Airline
-        let g:airline_theme='aurora'
+        let g:airline_theme='papercolor'
         let g:airline_powerline_fonts=1
     endif
 
@@ -356,6 +359,7 @@ if exists("realvim")
         " work properly when Vim is used inside tmux and GNU screen.
         set t_ut=
     endif
+    set t_ut=
 
     " mouse support
     if has('mouse')
